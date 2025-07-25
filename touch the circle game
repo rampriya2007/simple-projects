@@ -1,0 +1,63 @@
+package practiceawt;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class touchthecircle extends Frame implements MouseMotionListener {
+    int circleX=200,circleY=200,circleradius=10;
+    touchthecircle(){
+
+        addMouseMotionListener(this);
+
+        setSize(400,400);
+        setTitle("Touch the ball");
+        setLayout(new FlowLayout());
+        setVisible(true);
+    }
+
+  public void paint(Graphics g)
+  {
+      super.paint(g);
+      g.setColor(Color.MAGENTA);
+      g.fillOval(circleX,circleY,2*circleradius,2*circleradius);
+      addWindowListener(new WindowAdapter() {
+          @Override
+          public void windowClosing(WindowEvent e) {
+              System.exit(0);
+          }
+      });
+  }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+      int x=e.getX();
+      int y=e.getY();
+      if(x<circleX+circleradius)
+      {
+          circleX++;
+      }
+        if(x>circleY+circleradius)
+        {
+            circleX--;
+        }
+        if(y<circleY+circleradius)
+        {
+            circleY++;
+        }
+        if(y>circleY+circleradius)
+        {
+            circleY--;
+        }
+        repaint();
+    }
+
+
+    public static void main(String[] a) {
+        new touchthecircle();
+    }
+}
