@@ -1,0 +1,101 @@
+package practiceawt.chatapp;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.*;
+
+public class rampriya extends Frame implements Runnable ,ActionListener {
+    TextField tf;
+    TextArea ta;
+    Button btnsent;
+    ServerSocket serverSocket;
+    Socket socket;
+    DataInputStream dataInputStream;
+    DataOutputStream dataOutputStream;
+    Thread chat;
+    rampriya()
+    {
+        tf=new TextField();
+        ta=new TextArea();
+        btnsent=new Button("send");
+        btnsent.addActionListener(this);
+        try {
+            serverSocket = new ServerSocket(10000);
+            socket=serverSocket.accept();
+            dataInputStream=new DataInputStream(socket.getInputStream());
+            dataOutputStream=new DataOutputStream(socket.getOutputStream());
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        add(tf);
+        add(ta);
+        add(btnsent);
+        chat=new Thread(this);
+        chat.setDaemon(true);
+        chat.start();
+
+        setSize(500,500);
+        setVisible(true);
+        setTitle("rampriya");
+        setLayout(new FlowLayout());
+    }
+
+
+    @Override
+    public void run() {
+
+        while (true)
+        {
+            try {
+                {
+                    String msg=dataInputStream.readUTF();
+                    ta.append("ram:"+msg+"\n");
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+     String msg=tf.getText();
+     ta.append("rampriya:"+msg+"\n");
+     tf.setText("");
+     try
+     {
+         dataOutputStream.writeUTF(msg);
+         dataOutputStream.flush();
+     }catch (IOException ioe){
+
+     }
+    }
+
+    public static void main(String[] args) {
+        new rampriya();
+    }
+}
+/*
+import java.net.*;
+
+public class rampriya {
+    public static void main(String[] args) throws Exception {
+        DatagramSocket datagramSocket = new DatagramSocket();
+        String msg="hi client";
+        InetAddress ip=InetAddress.getByName("localhost");
+        DatagramPacket datagramPacket=new DatagramPacket(msg.getBytes(),msg.length(),ip,9999);
+        datagramSocket.send(datagramPacket);
+        datagramSocket.close();
+    }
+}
+*/
+
+
