@@ -1,0 +1,227 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class simplecalculator  extends Frame implements ActionListener {
+    TextField disp,disp1;
+    Label l;
+    Button addi, sub, mul, div, ans, allclear, zero, one, two, three, four, five, six, seven, eight, nine;
+
+    simplecalculator() {
+        disp = new TextField();
+        add(disp);
+        disp.setBounds(50, 50, 500, 40);
+        disp1 = new TextField();
+        add(disp1);
+        disp1.setBounds(110, 100, 440, 40);
+        l=new Label("Answer:");
+        add(l);
+        l.setBounds(50,100,50,40);
+
+        addi = new Button("+");
+        addi.setBounds(440, 170, 100, 100);
+        addi.addActionListener(this);
+        sub = new Button("-");
+        sub.setBounds(440, 290, 100, 100);
+        sub.addActionListener(this);
+        mul = new Button("*");
+        mul.setBounds(440, 410, 100, 100);
+        mul.addActionListener(this);
+        div = new Button("/");
+        div.setBounds(440, 530, 100, 100);
+        div.addActionListener(this);
+        ans = new Button("=");
+        ans.setBounds(290, 530, 100, 100);
+        ans.addActionListener(this);
+        allclear = new Button("AC");
+        allclear.setBounds(170, 530, 100, 100);
+        allclear.addActionListener(this);
+        zero = new Button("0");
+        zero.setBounds(50, 530, 100, 100);
+        zero.addActionListener(this);
+        one = new Button("1");
+        one.setBounds(50, 170, 100, 100);
+        one.addActionListener(this);
+        two = new Button("2");
+        two.setBounds(170, 170, 100, 100);
+        two.addActionListener(this);
+        three = new Button("3");
+        three.setBounds(290, 170, 100, 100);
+        three.addActionListener(this);
+        four = new Button("4");
+        four.setBounds(50, 290, 100, 100);
+        four.addActionListener(this);
+        five = new Button("5");
+        five.setBounds(170, 290, 100, 100);
+        five.addActionListener(this);
+        six = new Button("6");
+        six.setBounds(290, 290, 100, 100);
+        six.addActionListener(this);
+        seven = new Button("7");
+        seven.setBounds(50, 410, 100, 100);
+        seven.addActionListener(this);
+        eight = new Button("8");
+        eight.setBounds(170, 410, 100, 100);
+        eight.addActionListener(this);
+        nine = new Button("9");
+        nine.setBounds(290, 410, 100, 100);
+        nine.addActionListener(this);
+
+        add(addi);
+        add(sub);
+        add(mul);
+        add(div);
+        add(ans);
+        add(allclear);
+
+        add(zero);
+        add(one);
+        add(two);
+        add(three);
+        add(four);
+        add(five);
+        add(six);
+        add(seven);
+        add(eight);
+        add(nine);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                  System.exit(0);
+            }
+        });
+
+        setLayout(null);
+        setVisible(true);
+        setSize(500, 500);
+
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == zero) {
+            String expression = disp.getText();
+            expression += "0";
+            disp.setText(expression);
+        }
+        if (e.getSource() == one) {
+            String expression = disp.getText();
+            expression += "1";
+            disp.setText(expression);
+        }
+        if (e.getSource() == two) {
+            String expression = disp.getText();
+            expression += "2";
+            disp.setText(expression);
+        }
+        if (e.getSource() == three) {
+            String expression = disp.getText();
+            expression += "3";
+            disp.setText(expression);
+        }
+        if (e.getSource() == four) {
+            String expression = disp.getText();
+            expression += "4";
+            disp.setText(expression);
+        }
+        if (e.getSource() == five) {
+            String expression = disp.getText();
+            expression += "5";
+            disp.setText(expression);
+        }
+        if (e.getSource() == six) {
+            String expression = disp.getText();
+            expression += "6";
+            disp.setText(expression);
+        }
+        if (e.getSource() == seven) {
+            String expression = disp.getText();
+            expression += "7";
+            disp.setText(expression);
+        }
+        if (e.getSource() == eight) {
+            String expression = disp.getText();
+            expression += "8";
+            disp.setText(expression);
+        }
+        if (e.getSource() == nine) {
+            String expression = disp.getText();
+            expression += "9";
+            disp.setText(expression);
+        }
+
+        if (e.getSource() == allclear) {
+            disp.setText("0");
+        }
+        if (e.getSource() == addi) {
+            String expression = disp.getText();
+            expression += "+";
+            disp.setText(expression);
+        }
+        if (e.getSource() == sub) {
+            String expression = disp.getText();
+            expression += "-";
+            disp.setText(expression);
+        }
+        if (e.getSource() == mul) {
+            String expression = disp.getText();
+            expression += "*";
+            disp.setText(expression);
+        }
+        if (e.getSource() == div) {
+            String expression = disp.getText();
+            expression += "/";
+            disp.setText(expression);
+        }
+        if (e.getSource() == ans) {
+            int a, b,i;
+            char operator='+';
+            String expression = disp.getText();
+            String tempA = "", tempB = "";
+
+            for (i=0;i<expression.length();i++) {
+                if (Character.isDigit(expression.charAt(i))) {
+                    tempA+=expression.charAt(i);
+                }
+                else {
+                    operator=expression.charAt(i);
+                    break;
+                }
+            }
+            tempB=expression.substring(i+1);
+            a=Integer.parseInt(tempA);
+            b=Integer.parseInt(tempB);
+            int result=0;
+            float resultfordiv=0.0f;
+
+          switch (operator)
+          {
+              case '+':
+                  result=a+b;
+                  break;
+              case '-':
+                  result=a-b;
+                  break;
+              case '*':
+                  result=a*b;
+                  break;
+              case '/':
+                   resultfordiv=(float) a/(float)b;
+                  break;
+          }
+          if(operator=='/') {
+              disp1.setText(String.valueOf(resultfordiv));
+          }
+          else{
+              disp1.setText(String.valueOf(result));
+          }
+        }
+
+    }
+    public static void main (String[]args)
+        {
+            new simplecalculator();
+        }
+}
