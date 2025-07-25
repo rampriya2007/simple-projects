@@ -1,0 +1,39 @@
+package practiceawt;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+class counter{
+    int count=0;
+    void count()
+    {
+        count++;
+    }
+
+}
+public class countingapp{
+public static void main(String[] args) {
+   Frame frame=new Frame();
+   Label label=new Label("Click the button to count");
+   frame.add(label);
+    TextField disp=new TextField("0");
+    disp.setBounds(300,300,100,50);
+     frame.add(disp);
+    Button b=new Button("+");
+   frame.add(b);
+
+   frame.setSize(400,400);
+   frame.setLayout(new FlowLayout());
+   frame.setBackground(Color.PINK);
+    frame.setVisible(true);
+
+    counter obj=new counter();
+    b.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+           obj.count();
+           disp.setText(String.valueOf(obj.count));
+       }
+   });
+}
+}
