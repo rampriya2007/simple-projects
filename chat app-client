@@ -1,0 +1,83 @@
+package practiceawt.chatapp;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.*;
+
+public class ram extends Frame implements Runnable ,ActionListener {
+    TextField tf;
+    TextArea ta;
+    Button btnsent;
+    Socket socket;
+    DataInputStream dataInputStream;
+    DataOutputStream dataOutputStream;
+    Thread chat;
+    ram()
+    {
+        tf=new TextField();
+        ta=new TextArea();
+        btnsent=new Button("send");
+        btnsent.addActionListener(this);
+        try {
+            socket=new Socket("localhost",10000);
+            dataInputStream=new DataInputStream(socket.getInputStream());
+            dataOutputStream=new DataOutputStream(socket.getOutputStream());
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        add(tf);
+        add(ta);
+        add(btnsent);
+        chat=new Thread(this);
+        chat.setDaemon(true);
+        chat.start();
+        setSize(500,500);
+        setVisible(true);
+        setTitle("ram");
+        setLayout(new FlowLayout());
+
+    }
+
+    @Override
+    public void run() {
+
+        while (true)
+        {
+            try {
+                {
+                    String msg=dataInputStream.readUTF();
+                    ta.append("rampriya:"+msg+"\n");
+                }
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        String msg=tf.getText();
+        ta.append("ram:"+msg+"\n");
+        tf.setText("");
+        try
+        {
+            dataOutputStream.writeUTF(msg);
+            dataOutputStream.flush();
+        }catch (IOException ioe){
+
+        }
+    }
+
+    public static void main(String[] args) {
+        new ram();
+    }
+}
+
