@@ -33,4 +33,3 @@ A simple GUI-based game built using Java AWT.
 - Java Socket Programming
 - UDP Socket
 - Mouse ActionListener
-
