@@ -34,6 +34,3 @@ A simple GUI-based game built using Java AWT.
 - UDP Socket
 - Mouse ActionListener
 
-## About This Repository
-
-These projects were created while I was learning the basics of Java and programming. They helped me understand concepts such as socket programming, control statements, GUI programming, event handling, and user interaction.
